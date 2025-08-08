@@ -1,0 +1,86 @@
+[versions]
+accompanistPermissions = "<latest-version>"
+accompanistPermissionsVersion = "0.34.0"
+agp = "8.8.0"
+androidSdk = "1.3.0"
+androidSdkVersion = "0.9.7"
+braintree = "4.9.0"
+card = "5.13.0"
+coilCompose = "2.4.0"
+converterGson = "2.9.0"
+datastorePreferences = "1.1.7"
+googlePay = "4.49.1"
+konfettiCompose = "2.0.3"
+kotlin = "2.0.0"
+coreKtx = "1.15.0"
+junit = "4.13.2"
+junitVersion = "1.2.1"
+espressoCore = "3.6.1"
+lifecycleRuntimeKtx = "2.9.2"
+activityCompose = "1.10.1"
+composeBom = "2024.04.01"
+localPayment = "4.49.1"
+material = "1.8.3"
+materialIconsExtended = "1.7.8"
+navigationCompose = "2.9.2"
+paypal = "4.49.1"
+paypalAndroidSdk = "1.0.0"
+paypalAndroidSdkVersion = "1.3.1"
+playServicesWallet = "19.4.0"
+playServicesWalletVersion = "19.2.0"
+retrofit = "2.9.0"
+adsMobileSdk = "0.18.0-beta01"
+securityCrypto = "1.1.0"
+stripeAndroid = "21.20.2"
+firebaseFirestoreKtx = "26.0.0"
+
+[libraries]
+accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanistPermissions" }
+accompanist-permissions-v0340 = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanistPermissionsVersion" }
+android-sdk = { module = "com.paypal.checkout:android-sdk", version.ref = "androidSdk" }
+android-sdk-v097 = { module = "com.paypal.checkout:android-sdk", version.ref = "androidSdkVersion" }
+android-sdk-v100 = { module = "com.paypal.checkout:android-sdk", version.ref = "paypalAndroidSdk" }
+android-sdk-v131 = { module = "com.paypal.checkout:android-sdk", version.ref = "paypalAndroidSdkVersion" }
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
+androidx-material = { module = "androidx.compose.material:material", version.ref = "material" }
+androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "materialIconsExtended" }
+androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
+androidx-security-crypto = { module = "androidx.security:security-crypto", version.ref = "securityCrypto" }
+braintree = { module = "com.braintreepayments.api:braintree", version.ref = "braintree" }
+card = { module = "com.braintreepayments.api:card", version.ref = "card" }
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
+converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
+data-collector = { module = "com.braintreepayments.api:data-collector", version.ref = "card" }
+google-pay = { module = "com.braintreepayments.api:google-pay", version.ref = "googlePay" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+androidx-ui = { group = "androidx.compose.ui", name = "ui" }
+androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+konfetti-compose = { module = "nl.dionsegijn:konfetti-compose", version.ref = "konfettiCompose" }
+local-payment = { module = "com.braintreepayments.api:local-payment", version.ref = "localPayment" }
+paypal = { module = "com.braintreepayments.api:paypal", version.ref = "paypal" }
+play-services-wallet = { module = "com.google.android.gms:play-services-wallet", version.ref = "playServicesWallet" }
+play-services-wallet-v1920 = { module = "com.google.android.gms:play-services-wallet", version.ref = "playServicesWalletVersion" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+stripe-android = { module = "com.stripe:stripe-android", version.ref = "stripeAndroid" }
+three-d-secure = { module = "com.braintreepayments.api:three-d-secure", version.ref = "googlePay" }
+union-pay = { module = "com.braintreepayments.api:union-pay", version.ref = "googlePay" }
+venmo = { module = "com.braintreepayments.api:venmo", version.ref = "googlePay" }
+ads-mobile-sdk = { group = "com.google.android.libraries.ads.mobile.sdk", name = "ads-mobile-sdk", version.ref = "adsMobileSdk" }
+firebase-firestore-ktx = { group = "com.google.firebase", name = "firebase-firestore-ktx", version.ref = "firebaseFirestoreKtx" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+
