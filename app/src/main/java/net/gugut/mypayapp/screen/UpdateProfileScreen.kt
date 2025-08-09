@@ -28,7 +28,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import kotlinx.coroutines.launch
-import net.gugut.mypayapp.data.UserPreferences
 import net.gugut.mypayapp.viewModel.MainViewModel
 
 @Composable
