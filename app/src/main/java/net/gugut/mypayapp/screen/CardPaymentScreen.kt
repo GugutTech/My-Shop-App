@@ -27,7 +27,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.*
 import net.gugut.mypayapp.model.TShirt
-import androidx.navigation.NavController
 import net.gugut.mypayapp.util.formatCVV
 import net.gugut.mypayapp.util.formatCardNumber
 import net.gugut.mypayapp.util.formatExpiryDate
