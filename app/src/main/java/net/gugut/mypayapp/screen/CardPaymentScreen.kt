@@ -2,13 +2,11 @@ package net.gugut.mypayapp.screen
 
 import android.Manifest
 import android.os.Build
-import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
@@ -29,9 +27,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.*
 import net.gugut.mypayapp.model.TShirt
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import net.gugut.mypayapp.util.fetchCityStateFromZip
 import net.gugut.mypayapp.util.formatCVV
 import net.gugut.mypayapp.util.formatCardNumber
 import net.gugut.mypayapp.util.formatExpiryDate
