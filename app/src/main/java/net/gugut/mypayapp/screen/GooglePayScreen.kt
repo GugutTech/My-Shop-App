@@ -1,7 +1,6 @@
 package net.gugut.mypayapp.screen
 
 import android.app.Activity
-import android.content.Context
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts.StartIntentSenderForResult
