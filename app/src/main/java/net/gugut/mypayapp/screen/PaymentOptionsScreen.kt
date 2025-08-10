@@ -144,8 +144,11 @@ fun PaymentOptionsScreen(
                         tint = Color.Unspecified
                     )
                 }
-
-                IconButton(onClick = onPayPalClick) {
+                IconButton(onClick = {
+                    // Encode dot as underscore to avoid issues with Nav arguments
+                    val safeAmount = "%.2f".format(totalPrice).replace('.', '_')
+                    navController.navigate("paypalPayment/$safeAmount")
+                }) {
                     Icon(
                         painter = painterResource(id = R.drawable.icons8_paypal),
                         contentDescription = "PayPal",
@@ -153,6 +156,15 @@ fun PaymentOptionsScreen(
                         tint = Color.Unspecified
                     )
                 }
+
+//                IconButton(onClick = onPayPalClick) {
+//                    Icon(
+//                        painter = painterResource(id = R.drawable.icons8_paypal),
+//                        contentDescription = "PayPal",
+//                        modifier = Modifier.size(64.dp),
+//                        tint = Color.Unspecified
+//                    )
+//                }
 
                 IconButton(onClick = onCardPayClick) {
                     Icon(

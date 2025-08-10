@@ -5,7 +5,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -15,49 +14,28 @@ import net.gugut.mypayapp.screen.CartScreen
 import net.gugut.mypayapp.screen.TShirtListScreen
 import net.gugut.mypayapp.viewModel.MainViewModel
 import android.os.Build
-import android.os.Bundle
-import android.util.Log
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
-import com.stripe.android.paymentsheet.PaymentSheet
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
 import net.gugut.mypayapp.R
-import net.gugut.mypayapp.model.TShirt
-import net.gugut.mypayapp.nav.MainScaffold
 import net.gugut.mypayapp.screen.CardPaymentScreen
-import net.gugut.mypayapp.screen.CartScreen
 import net.gugut.mypayapp.screen.ChangePasswordScreen
 import net.gugut.mypayapp.screen.ConfirmationScreen
 import net.gugut.mypayapp.screen.EmailPreferencesScreen
 import net.gugut.mypayapp.screen.GooglePayScreen
-import net.gugut.mypayapp.screen.LoginScreen
 import net.gugut.mypayapp.screen.OrderHistoryScreen
-//import net.gugut.mypayapp.screen.PayPalScreen
+import net.gugut.mypayapp.screen.PayPalCheckoutScreen
 import net.gugut.mypayapp.screen.PaymentOptionsScreen
 import net.gugut.mypayapp.screen.ProfileScreen
-import net.gugut.mypayapp.screen.SignUpScreen
 import net.gugut.mypayapp.screen.TShirtDetailBottomSheet
-import net.gugut.mypayapp.screen.TShirtListScreen
 import net.gugut.mypayapp.screen.UpdateProfileScreen
-import net.gugut.mypayapp.ui.theme.MyPayAppTheme
-
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Composable
@@ -66,6 +44,7 @@ fun MainScaffold(
     onSignOut: () -> Unit
 ) {
     val navController = rememberNavController()
+    val context = LocalContext.current
 
     // Only show bottom nav on these routes
     val bottomNavRoutes = listOf("home", "cart", "chat")
@@ -171,7 +150,69 @@ fun MainScaffold(
                     )
                 }
             }
+            composable("googlePay/{amount}") { backStackEntry ->
+                val amount = backStackEntry.arguments?.getString("amount")?.toDoubleOrNull() ?: 0.0
+                GooglePayScreen(
+                    totalPrice = amount,
+                    paymentViewModel = mainViewModel,
+                    onDone = {
+                        navController.navigate("confirmationScreen")
+                    }
+                )
+            }
 
+//            composable("googlePay") {
+//                GooglePayScreen(
+//                    totalPrice = mainViewModel.getTotalPrice(),
+//                    paymentViewModel = mainViewModel,
+//                    onDone = {
+//                        navController.navigate("confirmationScreen") {
+//                            popUpTo("cart") { inclusive = true }
+//                        }
+//                    }
+//                )
+//            }
+            composable(
+                route = "paypalPayment/{amount}",
+                arguments = listOf(navArgument("amount") {
+                    type = NavType.StringType
+                    defaultValue = "0_00" // Use underscore as default
+                })
+            ) { backStackEntry ->
+                val rawAmount = backStackEntry.arguments?.getString("amount") ?: "0_00"
+                val amount = rawAmount.replace('_', '.') // Convert back to decimal string
+
+                PayPalCheckoutScreen(
+                    clientID = "AfQc_3M9KGo9lRgzu_qqbUoEC0GGb11H-FW5WU0GS9EXJWVGOz9Ltx4tDdmb7uY5y3v5qryCsnwAHze5",
+                    secretID = "EPJyn1ZS2yOZEInlhO1bb5qnl_NkBfU4q_di8O8GQpFCEBOAH99xZBJloPincgXFbpMBz6kr383A9LVw",
+                    amount = amount,
+                    onPaymentSuccess = {
+                        mainViewModel.notifyOrderStatus(context, "confirmed")
+                        navController.navigate("confirmationScreen")
+                    },
+                    onPaymentCanceled = { /* handle cancel */ },
+                    onPaymentError = { error -> /* handle error */ }
+                )
+            }
+
+
+//            composable("paypalPayment") {
+//                val context = LocalContext.current
+//                PayPalCheckoutScreen(
+//                    clientID = "YOUR_CLIENT_ID",
+//                    secretID = "YOUR_SECRET_ID",
+//                    onPaymentSuccess = {
+//                        mainViewModel.notifyOrderStatus(context, "confirmed")
+//                        navController.navigate("confirmationScreen")
+//                    },
+//                    onPaymentCanceled = {
+//                        // Handle payment cancellation
+//                    },
+//                    onPaymentError = { errorMessage ->
+//                        // Handle payment error
+//                    }
+//                )
+//            }
             composable("confirmationScreen") {
                 ConfirmationScreen(
                     navController = navController,
