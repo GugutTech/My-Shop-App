@@ -17,6 +17,10 @@ import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -40,6 +44,9 @@ fun CartScreen(
     val cartItems = cartViewModel.cartItems.collectAsState().value
     val savedItems = cartViewModel.savedItems.collectAsState().value
     val totalPrice = cartViewModel.getTotalPrice()
+
+    var showPaymentSheet by remember { mutableStateOf(false) }
+
 
     Scaffold(
         topBar = {
@@ -91,12 +98,20 @@ fun CartScreen(
 
                 Spacer(modifier = Modifier.height(12.dp))
 
+                // ⬇️ Replaced Checkout button with Bottom Sheet trigger
                 Button(
-                    onClick = { navController.navigate("payment") },
+                    onClick = { showPaymentSheet = true },
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text("Checkout")
                 }
+
+//                Button(
+//                    onClick = { navController.navigate("payment") },
+//                    modifier = Modifier.fillMaxWidth()
+//                ) {
+//                    Text("Checkout")
+//                }
             }
 
             if (savedItems.isNotEmpty()) {
@@ -117,6 +132,18 @@ fun CartScreen(
                     }
                 }
             }
+
+            // Bottom Sheet for Payment Options
+            if (showPaymentSheet) {
+                PaymentOptionsBottomSheet(
+                    totalAmount = "$${String.format("%.2f", totalPrice)}",
+                    onPayPalClick = { navController.navigate("paypalPayment/{amount}") }, // Launch PayPal flow
+                    onGooglePayClick = { navController.navigate("googlePay/{amount}") }, // Launch Google Pay
+                    onCardClick = { navController.navigate("cardPayment") }, // Launch Card Payment screen
+                    onDismiss = { showPaymentSheet = false }
+                )
+            }
+
         }
     }
 }

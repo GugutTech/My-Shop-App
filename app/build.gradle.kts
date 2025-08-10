@@ -61,30 +61,41 @@ dependencies {
     // Navigation
     implementation(libs.androidx.navigation.compose)
 
-    // Google Pay
+    // GooglePay
     implementation(libs.play.services.wallet)
     implementation(libs.play.services.wallet.v1920)
 
     // Icons
     implementation(libs.androidx.material.icons.extended)
 
-    //STRIPE: Latest stable release
+    // Stripe
     implementation(libs.stripe.android)
 
+    // Retrofit
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
 
+    // Coil
     implementation(libs.coil.compose)
 
+    // DataStore
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.androidx.security.crypto)
 
+    // Material
     implementation(libs.androidx.material)
 
+    // Permissions
     implementation(libs.accompanist.permissions)
     implementation(libs.accompanist.permissions.v0340)
 
-
+    // Konfetti
     implementation(libs.konfetti.compose)
+
+    implementation(libs.paypal.web.payments)
+
+    // Okhttp
+    implementation(libs.logging.interceptor)
+
 
 }
