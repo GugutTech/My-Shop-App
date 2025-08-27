@@ -285,7 +285,8 @@ fun TShirtItem(
     inStock: Boolean,
     onClick: () -> Unit
 ) {
-    val displayImageUrl = if (inStock && !imageUrl.isNullOrEmpty()) {
+    // FIX: Show the image if available, regardless of stock status
+    val displayImageUrl = if (!imageUrl.isNullOrEmpty()) {
         imageUrl
     } else if (!comingSoon.isNullOrEmpty()) {
         comingSoon
