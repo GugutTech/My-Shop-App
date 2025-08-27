@@ -9,12 +9,16 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import net.gugut.mypayapp.data.ClientTokenCallback
+import net.gugut.mypayapp.data.ExampleClientTokenProvider
 import net.gugut.mypayapp.model.TShirt
 import net.gugut.mypayapp.model.User
 import net.gugut.mypayapp.notification.NotificationHelper
@@ -48,8 +52,31 @@ class MainViewModel(
     private val _user = MutableStateFlow<User?>(null)  // Ensure you have this
     val currentUser = _user.asStateFlow()
 
+    private val _clientToken = MutableLiveData<String?>()
+    val clientToken: LiveData<String?> = _clientToken
+
+    private val _clientTokenError = MutableLiveData<String?>()
+    val clientTokenError: LiveData<String?> = _clientTokenError
+
+    private val provider = ExampleClientTokenProvider()
+
+    fun fetchClientToken() {
+        provider.getClientToken(object : ClientTokenCallback {
+            override fun onSuccess(token: String) {
+                _clientToken.postValue(token)
+                _clientTokenError.postValue(null)
+            }
+
+            override fun onFailure(exception: Exception) {
+                _clientToken.postValue(null)
+                _clientTokenError.postValue(exception.message)
+            }
+        })
+    }
+
     init {
         loadUserFromStorage()  // Load user data on ViewModel start
+        fetchClientToken()
     }
 
     fun updateUser(email: String, username: String): Boolean {

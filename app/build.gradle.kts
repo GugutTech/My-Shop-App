@@ -97,5 +97,14 @@ dependencies {
     // Okhttp
     implementation(libs.logging.interceptor)
 
+    // Moshi
+    implementation(libs.moshi)
+    implementation(libs.moshi.kotlin)
+
+    // Moshi Factory convertor for Retrofit
+    implementation(libs.converter.moshi)
+
+    //
+    implementation(libs.converter.gson.v300)
 
 }

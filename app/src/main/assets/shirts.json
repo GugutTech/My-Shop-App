@@ -1,0 +1,999 @@
+[
+  {
+    "teamName": "Arsenal",
+    "kits": [
+      {
+        "id": "1",
+        "kitType": "home",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 85.99,
+        "imageUrl": "http://192.168.254.183:3000/images/Arsenal-home.png",
+        "inStock": true
+      },
+      {
+        "id": "2",
+        "kitType": "away",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 87.99,
+        "imageUrl": "http://192.168.254.183:3000/images/arsenal-away.png",
+        "inStock": true
+      },
+      {
+        "id": "3",
+        "kitType": "third",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 82.99,
+        "imageUrl": "http://192.168.254.183:3000/images/arsenal-third-kit.png",
+        "inStock": false
+      }
+    ]
+  },
+  {
+    "teamName": "Aston Villa",
+    "kits": [
+      {
+        "id": "1",
+        "kitType": "home",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 85.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      },
+      {
+        "id": "2",
+        "kitType": "away",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 87.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      },
+      {
+        "id": "3",
+        "kitType": "third",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 82.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      }
+    ]
+  },
+  {
+    "teamName": "AFC Bournemouth",
+    "kits": [
+      {
+        "id": "1",
+        "kitType": "home",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 85.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      },
+      {
+        "id": "2",
+        "kitType": "away",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 87.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      },
+      {
+        "id": "3",
+        "kitType": "third",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 82.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      }
+    ]
+  },
+  {
+    "teamName": "Brentford",
+    "kits": [
+      {
+        "id": "1",
+        "kitType": "home",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 85.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      },
+      {
+        "id": "2",
+        "kitType": "away",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 87.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      },
+      {
+        "id": "3",
+        "kitType": "third",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 82.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      }
+    ]
+  },
+  {
+    "teamName": "Brighton & Hove Albion",
+    "kits": [
+      {
+        "id": "1",
+        "kitType": "home",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 85.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      },
+      {
+        "id": "2",
+        "kitType": "away",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 87.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      },
+      {
+        "id": "3",
+        "kitType": "third",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 82.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      }
+    ]
+  },
+  {
+    "teamName": "Chelsea",
+    "kits": [
+      {
+        "id": "1",
+        "kitType": "home",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 85.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      },
+      {
+        "id": "2",
+        "kitType": "away",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 87.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      },
+      {
+        "id": "3",
+        "kitType": "third",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 82.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      }
+    ]
+  },
+  {
+    "teamName": "Crystal Palace",
+    "kits": [
+      {
+        "id": "1",
+        "kitType": "home",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 85.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      },
+      {
+        "id": "2",
+        "kitType": "away",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 87.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      },
+      {
+        "id": "3",
+        "kitType": "third",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 82.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      }
+    ]
+  },
+  {
+    "teamName": "Everton",
+    "kits": [
+      {
+        "id": "1",
+        "kitType": "home",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 85.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      },
+      {
+        "id": "2",
+        "kitType": "away",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 87.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      },
+      {
+        "id": "3",
+        "kitType": "third",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 82.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      }
+    ]
+  },
+  {
+    "teamName": "Fulham",
+    "kits": [
+      {
+        "id": "1",
+        "kitType": "home",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 85.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      },
+      {
+        "id": "2",
+        "kitType": "away",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 87.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      },
+      {
+        "id": "3",
+        "kitType": "third",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 82.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      }
+    ]
+  },
+  {
+    "teamName": "Ipswich Town",
+    "kits": [
+      {
+        "id": "1",
+        "kitType": "home",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 85.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      },
+      {
+        "id": "2",
+        "kitType": "away",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 87.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      },
+      {
+        "id": "3",
+        "kitType": "third",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 82.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      }
+    ]
+  },
+  {
+    "teamName": "Leicester City",
+    "kits": [
+      {
+        "id": "1",
+        "kitType": "home",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 85.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      },
+      {
+        "id": "2",
+        "kitType": "away",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 87.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      },
+      {
+        "id": "3",
+        "kitType": "third",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 82.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      }
+    ]
+  },
+  {
+    "teamName": "Liverpool",
+    "kits": [
+      {
+        "id": "1",
+        "kitType": "home",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 85.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      },
+      {
+        "id": "2",
+        "kitType": "away",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 87.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      },
+      {
+        "id": "3",
+        "kitType": "third",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 82.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      }
+    ]
+  },
+  {
+    "teamName": "Manchester City",
+    "kits": [
+      {
+        "id": "1",
+        "kitType": "home",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 85.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      },
+      {
+        "id": "2",
+        "kitType": "away",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 87.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      },
+      {
+        "id": "3",
+        "kitType": "third",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 82.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      }
+    ]
+  },
+  {
+    "teamName": "Manchester United",
+    "kits": [
+      {
+        "id": "1",
+        "kitType": "home",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 85.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      },
+      {
+        "id": "2",
+        "kitType": "away",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 87.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      },
+      {
+        "id": "3",
+        "kitType": "third",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 82.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      }
+    ]
+  },
+  {
+    "teamName": "Newcastle United",
+    "kits": [
+      {
+        "id": "1",
+        "kitType": "home",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 85.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      },
+      {
+        "id": "2",
+        "kitType": "away",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 87.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      },
+      {
+        "id": "3",
+        "kitType": "third",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 82.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      }
+    ]
+  },
+  {
+    "teamName": "Nottingham Forest",
+    "kits": [
+      {
+        "id": "1",
+        "kitType": "home",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 85.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      },
+      {
+        "id": "2",
+        "kitType": "away",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 87.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      },
+      {
+        "id": "3",
+        "kitType": "third",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 82.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      }
+    ]
+  },
+  {
+    "teamName": "Southampton",
+    "kits": [
+      {
+        "id": "1",
+        "kitType": "home",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 85.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      },
+      {
+        "id": "2",
+        "kitType": "away",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 87.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      },
+      {
+        "id": "3",
+        "kitType": "third",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 82.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      }
+    ]
+  },
+  {
+    "teamName": "Tottenham Hotspur",
+    "kits": [
+      {
+        "id": "1",
+        "kitType": "home",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 85.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      },
+      {
+        "id": "2",
+        "kitType": "away",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 87.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      },
+      {
+        "id": "3",
+        "kitType": "third",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 82.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      }
+    ]
+  },
+  {
+    "teamName": "West Ham United",
+    "kits": [
+      {
+        "id": "1",
+        "kitType": "home",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 85.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      },
+      {
+        "id": "2",
+        "kitType": "away",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 87.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      },
+      {
+        "id": "3",
+        "kitType": "third",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 82.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      }
+    ]
+  },
+  {
+    "teamName": "Wolverhampton Wanderers",
+    "kits": [
+      {
+        "id": "1",
+        "kitType": "home",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 85.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      },
+      {
+        "id": "2",
+        "kitType": "away",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 87.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      },
+      {
+        "id": "3",
+        "kitType": "third",
+        "season": "2024/2025",
+        "sizeOptions": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "price": 82.99,
+        "imageUrl": null,
+        "comingSoon": "http://192.168.254.183:3000/images/image-coming-soon.png",
+        "inStock": false
+      }
+    ]
+  }
+]

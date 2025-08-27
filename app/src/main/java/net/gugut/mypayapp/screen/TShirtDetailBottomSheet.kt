@@ -55,7 +55,8 @@ fun TShirtDetailBottomSheet(
     val sizePrice = sizePrices[selectedSize] ?: 0.0
     val colorPrice = colorPrices[selectedColor] ?: 0.0
     val unroundedTotal = sizePrice + colorPrice
-    val totalPrice = roundPrice(unroundedTotal)
+    val taxRate = 0.10 // 10% tax, change to your value
+    val totalPrice = unroundedTotal * (1 + taxRate)
 
     val imageRes = colorToImageRes[selectedColor] ?: colorToImageRes.values.first()
 

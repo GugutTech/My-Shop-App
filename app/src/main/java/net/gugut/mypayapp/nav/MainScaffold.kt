@@ -67,7 +67,7 @@ fun MainScaffold(
                 TShirtListScreen(
                     navController = navController,
                     onAddToCart = { mainViewModel.addToCart(it) },
-                    onViewCart = { navController.navigate("cart") }
+//                    onViewCart = { navController.navigate("cart") }
                 )
             }
 

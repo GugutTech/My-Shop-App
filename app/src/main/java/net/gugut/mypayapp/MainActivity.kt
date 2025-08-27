@@ -65,7 +65,7 @@ class MainActivity : ComponentActivity() {
 fun GreetingPreview() {
     MyPayAppTheme {
         TShirtListScreen(
-            onViewCart = {},
+//            onViewCart = {},
             onAddToCart = {},
             navController = rememberNavController()
         )

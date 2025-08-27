@@ -28,7 +28,7 @@ interface ClientTokenCallback {
 }
 
 // ExampleClientTokenProvider.kt
-internal class ExampleClientTokenProvider : ClientTokenProvider {
+class ExampleClientTokenProvider : ClientTokenProvider {
 
     override fun getClientToken(callback: ClientTokenCallback) {
         val call: Call<ClientToken> = createService().getClientToken()
