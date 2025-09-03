@@ -30,8 +30,12 @@ import net.gugut.mypayapp.model.TShirt
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -43,6 +47,8 @@ import net.gugut.mypayapp.model.Kit
 import net.gugut.mypayapp.network.LocalDataLoader
 import net.gugut.mypayapp.network.RetrofitInstance
 import net.gugut.mypayapp.viewModel.MainViewModel
+import androidx.compose.ui.text.input.ImeAction
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -52,6 +58,7 @@ fun TShirtListScreen(
     mainViewModel: MainViewModel
 ) {
     var teams by remember { mutableStateOf(emptyList<ApiModuleItem>()) }
+    var filteredTeams by remember { mutableStateOf(emptyList<ApiModuleItem>()) }
     var selectedKit by remember { mutableStateOf<Kit?>(null) }
     val context = LocalContext.current
     var isLoading by remember { mutableStateOf(true) }
@@ -62,7 +69,7 @@ fun TShirtListScreen(
     // Collect greeting + user
     val greeting by mainViewModel.greeting.collectAsState()
     val currentUser by mainViewModel.currentUser.collectAsState()
-
+    var searchQuery by remember { mutableStateOf("") }
 
     LaunchedEffect(Unit) {
         try {
@@ -74,8 +81,10 @@ fun TShirtListScreen(
             teams = apiResult.ifEmpty {
                 LocalDataLoader.loadShirtsData(context)
             }
+            filteredTeams = teams
         } catch (e: Exception) {
             teams = emptyList()
+            filteredTeams = emptyList()
         } finally {
             isLoading = false
         }
@@ -93,15 +102,14 @@ fun TShirtListScreen(
             TopAppBar(
                 title = {
                     Column {
-                        Text("T-Shirt Shop")
-                        Spacer(modifier = Modifier.height(4.dp))
                         Text(
                             text = if (currentUser?.firstName?.isNotEmpty() == true)
-                                "$greeting, ${currentUser!!.firstName} 😊"
+                                "$greeting, ${currentUser?.firstName}!"
                             else
-                                "$greeting, username 😊",
+                                "$greeting, username!",
                             style = MaterialTheme.typography.bodyMedium,
-                            fontWeight = FontWeight.SemiBold
+                            fontWeight = FontWeight.SemiBold,
+                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp)
                         )
                     }
                 },
@@ -113,62 +121,91 @@ fun TShirtListScreen(
             )
         }
     ) { innerPadding ->
-
-    Box(modifier = Modifier.fillMaxSize()) {
-        LazyColumn(
+        Column(
             modifier = Modifier
-                .padding(16.dp)
-                .fillMaxSize(),
-            contentPadding = innerPadding,
-//            contentPadding = PaddingValues(16.dp),
-            verticalArrangement = Arrangement.spacedBy(24.dp)
+                .fillMaxSize()
+                .padding(innerPadding)
         ) {
-            teams.forEach { team ->
-                item {
-                    Text(
-                        team.teamName,
-                        style = MaterialTheme.typography.titleLarge,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier.padding(bottom = 16.dp)
-                    )
-                }
-
-                val kitRows = team.kits.chunked(3)
-                kitRows.forEach { rowKits ->
-                    item {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(bottom = 16.dp),
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            rowKits.forEach { kit ->
-                                TShirtItem(
-                                    baseName = kit.kitType,
-                                    colorName = kit.season,
-                                    imageUrl = kit.imageUrl,
-                                    comingSoon = kit.comingSoon,
-                                    price = kit.price,
-                                    inStock = kit.inStock,
-                                    onClick = {
-                                        // FIX: Remove the inStock check here
-                                        // All items should be clickable to show details
-                                        selectedKit = kit
-                                        coroutineScope.launch {
-                                            sheetState.show()
-                                        }
-                                    }
-                                )
+            // Search Bar
+            SearchBar(
+                query = searchQuery,
+                onQueryChange = { query ->
+                    searchQuery = query
+                    filteredTeams = if (query.isBlank()) {
+                        teams
+                    } else {
+                        teams.mapNotNull { team ->
+                            val filteredKits = team.kits.filter {
+                                it.kitType.contains(query, ignoreCase = true) ||
+                                        it.season.contains(query, ignoreCase = true)
                             }
-                            repeat(3 - rowKits.size) {
-                                Spacer(modifier = Modifier.width(120.dp))
+                            if (team.teamName.contains(query, ignoreCase = true) || filteredKits.isNotEmpty()) {
+                                team.copy(kits = filteredKits.ifEmpty { team.kits })
+                            } else null
+                        }
+                    }
+                },
+                onSearch = {
+                    filteredTeams = teams
+                    searchQuery = ""
+                    coroutineScope.launch { sheetState.hide() }
+                    selectedKit = null
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 5.dp, vertical = 3.dp)
+                    .height(50.dp),
+            )
+
+            LazyColumn(
+                modifier = Modifier
+                    .padding(8.dp)
+                    .fillMaxSize(),
+                verticalArrangement = Arrangement.spacedBy(2.dp)
+            ) {
+                filteredTeams.forEach { team ->
+                    item {
+                        Text(
+                            team.teamName,
+                            style = MaterialTheme.typography.titleLarge,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier.padding(bottom = 12.dp)
+                        )
+                    }
+
+                    val kitRows = team.kits.chunked(3)
+                    kitRows.forEach { rowKits ->
+                        item {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(bottom = 12.dp),
+                                horizontalArrangement = Arrangement.SpaceBetween
+                            ) {
+                                rowKits.forEach { kit ->
+                                    TShirtItem(
+                                        baseName = kit.kitType,
+                                        colorName = kit.season,
+                                        imageUrl = kit.imageUrl,
+                                        comingSoon = kit.comingSoon,
+                                        price = kit.price,
+                                        inStock = kit.inStock,
+                                        onClick = {
+                                            selectedKit = kit
+                                            coroutineScope.launch { sheetState.show() }
+                                        }
+                                    )
+                                }
+                                repeat(3 - rowKits.size) {
+                                    Spacer(modifier = Modifier.width(120.dp))
+                                }
                             }
                         }
                     }
                 }
             }
         }
-    }
+
         if (selectedKit != null) {
             ModalBottomSheet(
                 onDismissRequest = {
@@ -193,6 +230,42 @@ fun TShirtListScreen(
             }
         }
     }
+}
+
+// Simplified SearchBar that's less likely to crash
+@Composable
+fun SearchBar(
+    query: String,
+    onQueryChange: (String) -> Unit,
+    onSearch: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    OutlinedTextField(
+        value = query,
+        onValueChange = onQueryChange,
+        leadingIcon = {
+            Icon(
+                imageVector = Icons.Default.Search,
+                contentDescription = "Search"
+            )
+        },
+        placeholder = {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
+                contentAlignment = Alignment.CenterStart
+            ) {
+                Text("Search for t-shirts...")
+            }
+        },
+        singleLine = true,
+        modifier = modifier,
+        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+        keyboardActions = KeyboardActions(
+            onSearch = { onSearch() }
+        )
+    )
 }
 
 @Composable
@@ -314,6 +387,8 @@ fun TShirtBottomSheet(
         Spacer(modifier = Modifier.height(16.dp))
     }
 }
+
+
 
 @Composable
 fun TShirtItem(
