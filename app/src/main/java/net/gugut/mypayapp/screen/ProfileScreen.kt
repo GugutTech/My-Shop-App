@@ -24,6 +24,7 @@ fun ProfileScreen(
     onSignOut: () -> Unit
 ) {
     val user by mainViewModel.currentUser.collectAsState()
+    val greeting by mainViewModel.greeting.collectAsState()
 
     Column(
         modifier = Modifier
@@ -32,7 +33,17 @@ fun ProfileScreen(
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
-        Text("Account", style = MaterialTheme.typography.headlineSmall)
+        // Greeting text at the top
+        Text(
+            text = if (user != null && user!!.fullName.isNotBlank()) {
+                "$greeting, ${user!!.fullName} 👋"
+            } else if (user != null) {
+                "$greeting, ${user!!.username} 👋"
+            } else {
+                "$greeting, Guest 👋"
+            },
+            style = MaterialTheme.typography.headlineSmall
+        )
 
         ProfileOption("👤  Update Account Info") {
             navController.navigate("updateProfile")

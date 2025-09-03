@@ -29,6 +29,8 @@ fun SignUpScreen(
     mainViewModel: MainViewModel,
     username: String
 ) {
+    var firstName by remember { mutableStateOf("") }
+    var lastName by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
@@ -42,6 +44,20 @@ fun SignUpScreen(
     ) {
         Text("Sign Up", fontSize = 24.sp)
         Spacer(modifier = Modifier.height(16.dp))
+
+        OutlinedTextField(
+            value = firstName,
+            onValueChange = { firstName = it },
+            label = { Text("First Name") },
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        OutlinedTextField(
+            value = lastName,
+            onValueChange = { lastName = it },
+            label = { Text("Last Name") },
+            modifier = Modifier.fillMaxWidth()
+        )
 
         OutlinedTextField(
             value = email,
@@ -67,31 +83,29 @@ fun SignUpScreen(
         )
 
         if (showError) {
-            Text("Passwords do not match", color = Color.Red)
+            Text("Please fill all fields and ensure passwords match", color = Color.Red)
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Button(onClick = {
-            if (mainViewModel.registerUser(username, password)) {
-                navController.popBackStack() // back to login
-            }
-        }) {
-            Text("Sign Up")
-        }
-
-
         Button(
             onClick = {
-                if (password != confirmPassword || email.isBlank()) {
+                if (firstName.isBlank() || lastName.isBlank() || email.isBlank() || password != confirmPassword) {
                     showError = true
                 } else {
-                    Toast.makeText(
-                        navController.context,
-                        "Account created!",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    navController.popBackStack()
+                    val success = mainViewModel.registerUser(
+                        username = username,
+                        password = password,
+                        firstName = firstName,
+                        lastName = lastName,
+                        email = email
+                    )
+                    if (success) {
+                        Toast.makeText(navController.context, "Account created!", Toast.LENGTH_SHORT).show()
+                        navController.popBackStack() // back to login
+                    } else {
+                        showError = true
+                    }
                 }
             },
             modifier = Modifier.fillMaxWidth()
@@ -100,3 +114,4 @@ fun SignUpScreen(
         }
     }
 }
+

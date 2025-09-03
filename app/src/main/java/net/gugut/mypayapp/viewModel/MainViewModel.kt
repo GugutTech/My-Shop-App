@@ -12,10 +12,12 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import net.gugut.mypayapp.data.ClientTokenCallback
 import net.gugut.mypayapp.data.ExampleClientTokenProvider
@@ -23,6 +25,7 @@ import net.gugut.mypayapp.model.TShirt
 import net.gugut.mypayapp.model.User
 import net.gugut.mypayapp.notification.NotificationHelper
 import net.gugut.mypayapp.util.*  // your utils (formatting, fetchCityStateFromZip, etc)
+import java.util.Calendar
 
 class MainViewModel(
     application: Application
@@ -37,6 +40,10 @@ class MainViewModel(
     var username by mutableStateOf("")
     var password by mutableStateOf("")
     var loginError by mutableStateOf<String?>(null)
+
+    // already have _user
+    private val _greeting = MutableStateFlow("")
+    val greeting = _greeting.asStateFlow()
 
     private fun checkIfUserLoggedIn(): Boolean {
         return sharedPreferences.getBoolean("isLoggedIn", false)
@@ -77,6 +84,7 @@ class MainViewModel(
     init {
         loadUserFromStorage()  // Load user data on ViewModel start
         fetchClientToken()
+        startGreetingUpdater()
     }
 
     fun updateUser(email: String, username: String): Boolean {
@@ -103,14 +111,51 @@ class MainViewModel(
     var isUserLoggedIn by mutableStateOf(checkIfUserLoggedIn())
         private set
 
-    fun registerUser(newUsername: String, newPassword: String): Boolean {
-        if (newUsername.isBlank() || newPassword.isBlank()) return false
+
+    fun registerUser(
+        username: String,
+        password: String,
+        firstName: String,
+        lastName: String,
+        email: String
+    ): Boolean {
+        if (username.isBlank() || password.isBlank()) return false
+
+        val user = User(
+            username = username,
+            password = password,
+            email = email,
+            firstName = firstName,
+            lastName = lastName
+        )
+
+        _user.value = user  // save in currentUser flow
+
+        // Save to shared preferences
         sharedPreferences.edit()
-            .putString("savedUsername", newUsername)
-            .putString("savedPassword", newPassword)
+            .putString("savedUsername", username)
+            .putString("savedPassword", password)
+            .putString("user_firstName", firstName)
+            .putString("user_lastName", lastName)
+            .putString("user_email", email)
+            .putBoolean("isLoggedIn", true) // optional: auto login
             .apply()
+
         return true
     }
+
+//    fun registerUser(newUsername: String, newPassword: String, firstName: String, lastName: String, email: String): Boolean {
+//        if (newUsername.isBlank() || newPassword.isBlank()) return false
+//        val newUser = User(newUsername, newPassword, email, firstName, lastName)
+//        _user.value = newUser
+//        saveUserToStorage(newUser)
+//        sharedPreferences.edit()
+//            .putString("savedUsername", newUsername)
+//            .putString("savedPassword", newPassword)
+//            .apply()
+//        return true
+//    }
+
 
 
     fun loginUser(inputUsername: String, inputPassword: String): Boolean {
@@ -219,6 +264,8 @@ class MainViewModel(
                 .putString("user_email", it.email)
                 .putString("user_username", it.username)
                 .putString("user_password", it.password)
+                .putString("user_firstName", it.firstName)
+                .putString("user_lastName", it.lastName)
                 .apply()
         }
     }
@@ -227,9 +274,11 @@ class MainViewModel(
         val email = sharedPreferences.getString("user_email", null)
         val username = sharedPreferences.getString("user_username", null)
         val password = sharedPreferences.getString("user_password", null)
+        val firstName = sharedPreferences.getString("user_firstName", "") ?: ""
+        val lastName = sharedPreferences.getString("user_lastName", "") ?: ""
 
         if (!email.isNullOrBlank() && !username.isNullOrBlank() && !password.isNullOrBlank()) {
-            _user.value = User(email, username, password)
+            _user.value = User(username, password, email, firstName, lastName)
         }
     }
 
@@ -369,6 +418,35 @@ class MainViewModel(
         val current = _savedItems.value.toMutableMap()
         current.remove(item)
         _savedItems.value = current
+    }
+
+    private fun updateGreeting() {
+        val hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+        val text = when (hour) {
+            in 5..11 -> "Good morning"
+            in 12..16 -> "Good afternoon"
+            in 17..21 -> "Good evening"
+            else -> "Good night"
+        }
+        _greeting.value = text
+    }
+
+    private fun startGreetingUpdater() {
+        viewModelScope.launch {
+            while (isActive) {
+                updateGreeting()
+                delay(60 * 1000L) // check once per minute
+            }
+        }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        viewModelScope.cancel() // cleanup when VM is destroyed
+    }
+
+    fun setCurrentUser(user: User) {
+        _user.value = user
     }
 
 

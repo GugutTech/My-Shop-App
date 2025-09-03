@@ -67,7 +67,8 @@ fun GreetingPreview() {
         TShirtListScreen(
 //            onViewCart = {},
             onAddToCart = {},
-            navController = rememberNavController()
+            navController = rememberNavController(),
+            mainViewModel = viewModel()
         )
     }
 }

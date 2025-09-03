@@ -1,12 +1,9 @@
 package net.gugut.mypayapp.screen
 
-import android.util.Log
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -33,29 +30,26 @@ import net.gugut.mypayapp.model.TShirt
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.ModalBottomSheetLayout
-import androidx.compose.material.ModalBottomSheetState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import coil.compose.AsyncImage
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import net.gugut.mypayapp.model.ApiModuleItem
 import net.gugut.mypayapp.model.Kit
 import net.gugut.mypayapp.network.LocalDataLoader
 import net.gugut.mypayapp.network.RetrofitInstance
+import net.gugut.mypayapp.viewModel.MainViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TShirtListScreen(
     onAddToCart: (TShirt) -> Unit,
-    navController: NavController
+    navController: NavController,
+    mainViewModel: MainViewModel
 ) {
     var teams by remember { mutableStateOf(emptyList<ApiModuleItem>()) }
     var selectedKit by remember { mutableStateOf<Kit?>(null) }
@@ -64,6 +58,11 @@ fun TShirtListScreen(
 
     val coroutineScope = rememberCoroutineScope()
     val sheetState = rememberModalBottomSheetState()
+
+    // Collect greeting + user
+    val greeting by mainViewModel.greeting.collectAsState()
+    val currentUser by mainViewModel.currentUser.collectAsState()
+
 
     LaunchedEffect(Unit) {
         try {
@@ -89,10 +88,39 @@ fun TShirtListScreen(
         return
     }
 
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {
+                    Column {
+                        Text("T-Shirt Shop")
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(
+                            text = if (currentUser?.firstName?.isNotEmpty() == true)
+                                "$greeting, ${currentUser!!.firstName} 😊"
+                            else
+                                "$greeting, username 😊",
+                            style = MaterialTheme.typography.bodyMedium,
+                            fontWeight = FontWeight.SemiBold
+                        )
+                    }
+                },
+                actions = {
+                    IconButton(onClick = { navController.navigate("profile") }) {
+                        Icon(Icons.Default.AccountCircle, contentDescription = "Profile")
+                    }
+                }
+            )
+        }
+    ) { innerPadding ->
+
     Box(modifier = Modifier.fillMaxSize()) {
         LazyColumn(
-            modifier = Modifier.fillMaxSize(),
-            contentPadding = PaddingValues(16.dp),
+            modifier = Modifier
+                .padding(16.dp)
+                .fillMaxSize(),
+            contentPadding = innerPadding,
+//            contentPadding = PaddingValues(16.dp),
             verticalArrangement = Arrangement.spacedBy(24.dp)
         ) {
             teams.forEach { team ->
@@ -123,11 +151,11 @@ fun TShirtListScreen(
                                     price = kit.price,
                                     inStock = kit.inStock,
                                     onClick = {
-                                        if (kit.inStock) {
-                                            selectedKit = kit
-                                            coroutineScope.launch {
-                                                sheetState.show()
-                                            }
+                                        // FIX: Remove the inStock check here
+                                        // All items should be clickable to show details
+                                        selectedKit = kit
+                                        coroutineScope.launch {
+                                            sheetState.show()
                                         }
                                     }
                                 )
@@ -140,8 +168,7 @@ fun TShirtListScreen(
                 }
             }
         }
-
-        // FIXED: Use ModalBottomSheet instead of ModalBottomSheetLayout
+    }
         if (selectedKit != null) {
             ModalBottomSheet(
                 onDismissRequest = {
@@ -175,6 +202,7 @@ fun TShirtBottomSheet(
     onDismiss: () -> Unit
 ) {
     var selectedSize by remember { mutableStateOf(kit.sizeOptions.firstOrNull() ?: "M") }
+    val isComingSoon = kit.imageUrl.isNullOrEmpty() || !kit.inStock
 
     Column(
         modifier = Modifier
@@ -206,32 +234,43 @@ fun TShirtBottomSheet(
         }
 
         Spacer(modifier = Modifier.height(16.dp))
-        Text("Select Size:", style = MaterialTheme.typography.bodyMedium)
-        Spacer(modifier = Modifier.height(8.dp))
 
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            kit.sizeOptions.forEach { size ->
-                Button(
-                    onClick = { selectedSize = size },
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = if (selectedSize == size) {
-                            MaterialTheme.colorScheme.primary
-                        } else {
-                            MaterialTheme.colorScheme.surface
-                        }
-                    )
-                ) {
-                    Text(
-                        size,
-                        color = if (selectedSize == size) {
-                            MaterialTheme.colorScheme.onPrimary
-                        } else {
-                            MaterialTheme.colorScheme.onSurface
-                        }
-                    )
+        if (isComingSoon) {
+            Text(
+                "Coming Soon",
+                style = MaterialTheme.typography.bodyLarge,
+                color = Color.Gray,
+                fontWeight = FontWeight.Bold
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+        } else {
+            Text("Select Size:", style = MaterialTheme.typography.bodyMedium)
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                kit.sizeOptions.forEach { size ->
+                    Button(
+                        onClick = { selectedSize = size },
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = if (selectedSize == size) {
+                                MaterialTheme.colorScheme.primary
+                            } else {
+                                MaterialTheme.colorScheme.surface
+                            }
+                        )
+                    ) {
+                        Text(
+                            size,
+                            color = if (selectedSize == size) {
+                                MaterialTheme.colorScheme.onPrimary
+                            } else {
+                                MaterialTheme.colorScheme.onSurface
+                            }
+                        )
+                    }
                 }
             }
         }
@@ -265,68 +304,49 @@ fun TShirtBottomSheet(
                         )
                     )
                 },
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1f),
+                // FIX: Disable the button for coming soon items
+                enabled = !isComingSoon
             ) {
-                Text("Add to Cart")
+                Text(if (isComingSoon) "Not Available" else "Add to Cart")
             }
         }
         Spacer(modifier = Modifier.height(16.dp))
     }
 }
 
-// Keep your TShirtItem composable the same as before
 @Composable
 fun TShirtItem(
     baseName: String,
     colorName: String,
     imageUrl: String?,
-    comingSoon: String?,
     price: Double,
     inStock: Boolean,
+    comingSoon: String?,
     onClick: () -> Unit
 ) {
-    // FIX: Show the image if available, regardless of stock status
-    val displayImageUrl = if (!imageUrl.isNullOrEmpty()) {
-        imageUrl
-    } else if (!comingSoon.isNullOrEmpty()) {
-        comingSoon
-    } else {
-        null
-    }
+    val context = LocalContext.current
+    val baseUrl = context.getString(R.string.base_url)
+    val fallbackImage = "${baseUrl}images/image-coming-soon.png"
 
-    val isComingSoon = !inStock
+    // pick image (kit image or fallback)
+    val displayImageUrl = imageUrl ?: fallbackImage
+    val isComingSoon = imageUrl.isNullOrEmpty() || !inStock
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .width(120.dp)
-            .clickable(enabled = inStock) { onClick() }
+            .clickable { onClick() }
     ) {
-        Box(
+        AsyncImage(
+            model = displayImageUrl,
+            contentDescription = if (isComingSoon) "Coming Soon" else "$baseName - $colorName",
             modifier = Modifier
                 .size(100.dp)
-                .clip(MaterialTheme.shapes.medium)
-        ) {
-            if (!displayImageUrl.isNullOrEmpty()) {
-                AsyncImage(
-                    model = displayImageUrl,
-                    contentDescription = if (isComingSoon) "Coming Soon" else "$baseName - $colorName",
-                    modifier = Modifier
-                        .size(100.dp)
-                        .clip(MaterialTheme.shapes.medium),
-                    contentScale = ContentScale.Crop
-                )
-            } else {
-                Box(
-                    modifier = Modifier
-                        .size(100.dp)
-                        .background(Color.LightGray),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text("No Image", textAlign = TextAlign.Center)
-                }
-            }
-        }
+                .clip(MaterialTheme.shapes.medium),
+            contentScale = ContentScale.Crop
+        )
 
         Spacer(modifier = Modifier.height(4.dp))
         Text(
