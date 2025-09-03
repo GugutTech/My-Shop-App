@@ -4,8 +4,12 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.calculateEndPadding
+import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -48,6 +52,7 @@ import net.gugut.mypayapp.network.LocalDataLoader
 import net.gugut.mypayapp.network.RetrofitInstance
 import net.gugut.mypayapp.viewModel.MainViewModel
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.lifecycle.viewmodel.compose.viewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -117,52 +122,58 @@ fun TShirtListScreen(
                     IconButton(onClick = { navController.navigate("profile") }) {
                         Icon(Icons.Default.AccountCircle, contentDescription = "Profile")
                     }
-                }
+                },
+                windowInsets = WindowInsets(0.dp),
+                modifier = Modifier.height(40.dp),
+                colors = TopAppBarDefaults.smallTopAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.background
+                )
             )
         }
     ) { innerPadding ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
-        ) {
-            // Search Bar
-            SearchBar(
-                query = searchQuery,
-                onQueryChange = { query ->
-                    searchQuery = query
-                    filteredTeams = if (query.isBlank()) {
-                        teams
-                    } else {
-                        teams.mapNotNull { team ->
-                            val filteredKits = team.kits.filter {
-                                it.kitType.contains(query, ignoreCase = true) ||
-                                        it.season.contains(query, ignoreCase = true)
-                            }
-                            if (team.teamName.contains(query, ignoreCase = true) || filteredKits.isNotEmpty()) {
-                                team.copy(kits = filteredKits.ifEmpty { team.kits })
-                            } else null
-                        }
-                    }
-                },
-                onSearch = {
-                    filteredTeams = teams
-                    searchQuery = ""
-                    coroutineScope.launch { sheetState.hide() }
-                    selectedKit = null
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 5.dp, vertical = 3.dp)
-                    .height(50.dp),
-            )
-
             LazyColumn(
                 modifier = Modifier
-                    .padding(8.dp)
-                    .fillMaxSize(),
+                    .fillMaxSize()
+                    .padding(
+                        start = innerPadding.calculateStartPadding(LayoutDirection.Ltr),
+                        top = innerPadding.calculateTopPadding(),
+                        end = innerPadding.calculateEndPadding(LayoutDirection.Ltr)
+                    ),
+                contentPadding = PaddingValues(0.dp),
                 verticalArrangement = Arrangement.spacedBy(2.dp)
             ) {
+                // ✅ Make SearchBar part of the list
+                item {
+                    SearchBar(
+                        query = searchQuery,
+                        onQueryChange = { query ->
+                            searchQuery = query
+                            filteredTeams = if (query.isBlank()) {
+                                teams
+                            } else {
+                                teams.mapNotNull { team ->
+                                    val filteredKits = team.kits.filter {
+                                        it.kitType.contains(query, ignoreCase = true) ||
+                                                it.season.contains(query, ignoreCase = true)
+                                    }
+                                    if (team.teamName.contains(query, ignoreCase = true) || filteredKits.isNotEmpty()) {
+                                        team.copy(kits = filteredKits.ifEmpty { team.kits })
+                                    } else null
+                                }
+                            }
+                        },
+                        onSearch = {
+                            filteredTeams = teams
+                            searchQuery = ""
+                            coroutineScope.launch { sheetState.hide() }
+                            selectedKit = null
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 5.dp, vertical = 3.dp)
+                            .height(50.dp)
+                    )
+                }
                 filteredTeams.forEach { team ->
                     item {
                         Text(
@@ -202,7 +213,7 @@ fun TShirtListScreen(
                             }
                         }
                     }
-                }
+
             }
         }
 

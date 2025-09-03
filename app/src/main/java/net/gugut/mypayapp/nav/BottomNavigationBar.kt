@@ -1,5 +1,6 @@
 package net.gugut.mypayapp.nav
 
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -10,10 +11,13 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material3.NavigationBar
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 
 @Composable
-fun BottomNavigationBar(navController: NavController) {
+fun BottomNavigationBar(
+    navController: NavController
+) {
     val items = listOf(
         BottomNavItem.Home,
         BottomNavItem.Cart,
@@ -24,7 +28,9 @@ fun BottomNavigationBar(navController: NavController) {
     val currentRoute = currentBackStackEntry?.destination?.route
 
     NavigationBar(
-        modifier = Modifier.navigationBarsPadding()
+        modifier = Modifier
+            .navigationBarsPadding()
+            .height(57.dp)
     ) {
         items.forEach { item ->
             BottomNavigationItem(
